@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd8lutl37mo87"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_teysl"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_p54wd"]
+material = SubResource("StandardMaterial3D_teysl")
+size = Vector2(0.05, 20)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.1, 2.08165e-12)
+mesh = SubResource("PlaneMesh_p54wd")

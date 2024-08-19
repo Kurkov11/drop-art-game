@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://crf4m4vs6v0j2"]
+
+[ext_resource type="Script" path="res://scenes/SlidingShape.gd" id="1_8lo1v"]
+[ext_resource type="Script" path="res://scenes/FallPointDetector.gd" id="2_hal2r"]
+[ext_resource type="PackedScene" uid="uid://64j8rmcsjuwu" path="res://scenes/drop_particles.tscn" id="3_r12mc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sum1w"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_3is2b"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_sum1w")
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gq1dg"]
+resource_local_to_scene = true
+size = Vector3(1.9785, 20.1541, 1.99342)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e3l6s"]
+resource_local_to_scene = true
+size = Vector3(1.99213, 1.9978, 1.99469)
+
+[node name="SlidingShape" type="Area3D"]
+script = ExtResource("1_8lo1v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 5.94585e-11, -5.10718e-10, -5.94585e-11, 1, -1.4689e-11, 5.10718e-10, 1.4689e-11, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_3is2b")
+
+[node name="FallPointDetector" type="Area3D" parent="." groups=["fall_point_detectors"]]
+script = ExtResource("2_hal2r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FallPointDetector"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00717926, -10.8738, -0.00151825)
+shape = SubResource("BoxShape3D_gq1dg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00283813, -0.00134277, -0.000152588)
+shape = SubResource("BoxShape3D_e3l6s")
+
+[node name="DropPlayer" type="AudioStreamPlayer3D" parent="."]
+volume_db = 20.0
+
+[node name="DropParticles" parent="." instance=ExtResource("3_r12mc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.56706, 0)
+
+[connection signal="area_entered" from="FallPointDetector" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="FallPointDetector" to="." method="_on_area_3d_body_entered"]

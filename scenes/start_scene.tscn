@@ -1,0 +1,136 @@
+[gd_scene load_steps=23 format=3 uid="uid://c6rcxn5v8p5nh"]
+
+[ext_resource type="Script" path="res://scenes/start_scene.gd" id="1_iepvg"]
+[ext_resource type="Script" path="res://scenes/CameraHolder.gd" id="1_yb2a4"]
+[ext_resource type="Script" path="res://scenes/TopSpawner.gd" id="2_lg82u"]
+[ext_resource type="Script" path="res://scenes/GridLine.gd" id="4_1wxn0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ey7bo"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_8ol20"]
+sky_material = SubResource("ProceduralSkyMaterial_ey7bo")
+
+[sub_resource type="Environment" id="Environment_5g10p"]
+background_mode = 2
+sky = SubResource("Sky_8ol20")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7y8wj"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jewry"]
+material = SubResource("StandardMaterial3D_7y8wj")
+size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6sc4d"]
+size = Vector3(500, 0.1, 500)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6am4h"]
+albedo_color = Color(0.21, 0.21, 0.21, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l8gcj"]
+material = SubResource("StandardMaterial3D_6am4h")
+size = Vector2(20, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sbadc"]
+albedo_color = Color(1, 0.6, 0.0470588, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kryav"]
+material = SubResource("StandardMaterial3D_sbadc")
+size = Vector2(0.3, 10)
+center_offset = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wy44q"]
+albedo_color = Color(0.458824, 0.054902, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_2gpwu"]
+material = SubResource("StandardMaterial3D_wy44q")
+size = Vector2(10, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vukxh"]
+albedo_color = Color(0.235645, 0.703895, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_75kqt"]
+material = SubResource("StandardMaterial3D_vukxh")
+size = Vector2(10, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grlqo"]
+albedo_color = Color(0.352941, 0.6, 0.0313726, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wxb1a"]
+material = SubResource("StandardMaterial3D_grlqo")
+size = Vector2(0.3, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmr13"]
+albedo_color = Color(1, 0.0235294, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_bph8a"]
+material = SubResource("StandardMaterial3D_dmr13")
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.001
+
+[node name="SpawnScene" type="Node3D"]
+transform = Transform3D(0.999996, 0.00249279, 0.00133379, -0.00249274, 0.999997, -3.87381e-05, -0.00133388, 3.54132e-05, 0.999999, 0, 0, 0)
+script = ExtResource("1_iepvg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5g10p")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CameraHolder" type="Node3D" parent="."]
+script = ExtResource("1_yb2a4")
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+transform = Transform3D(1, 4.16355e-05, -4.16194e-05, -2.72316e-05, 0.953937, 0.300007, 5.21932e-05, -0.300007, 0.953937, 2.08165e-12, 5.5, 9.6)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CameraHolder"]
+
+[node name="TopSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 8.43053e-11, 3.03857e-10, -6.14021e-10, 1, -1.04175e-11, 3.35079e-10, 1.66355e-12, 1, 4.32061e-09, 16.404, -4.26767e-11)
+script = ExtResource("2_lg82u")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 2.29067e-05, -0.000108315, -2.29064e-05, 1, 0.000111433, 0.000108315, -0.000111433, 1, 0, 0, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 5.54529e-10, -9.8097e-11, -5.13757e-10, 1, 7.9945e-12, 7.53682e-11, 1.89685e-11, 1, 0, 0, 0)
+mesh = SubResource("PlaneMesh_jewry")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 8.43066e-11, 7.56246e-08, -1.51251e-07, 1, -1.77483e-09, 5.80659e-09, 1.66355e-12, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_6sc4d")
+
+[node name="ShapeDropArea" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 8.43066e-11, 1.87442e-10, -3.7719e-10, 1, -6.77653e-12, 2.18663e-10, 1.66355e-12, 1, 2.08165e-12, 0.01, 2.08165e-12)
+mesh = SubResource("PlaneMesh_l8gcj")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 1.41918e-09, 2.21467e-10, -2.00909e-09, 1, 3.53089e-11, 5.41029e-10, 1.28108e-10, 1, 0.0328955, 0.0299935, -4.95574)
+mesh = SubResource("PlaneMesh_kryav")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 7.87303e-10, 2.32831e-10, -4.03049e-09, 1, 5.82077e-11, 1.58877e-09, 2.00867e-10, 1, -5.015, 0.03, 0.001)
+mesh = SubResource("PlaneMesh_2gpwu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 3.2169e-10, 2.78514e-10, -1.70962e-09, 1, -1.92022e-11, 7.7386e-10, 4.80723e-11, 1, 4.988, 0.03, 2.08165e-12)
+mesh = SubResource("PlaneMesh_75kqt")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 1.48605e-09, 5.47309e-11, -1.79708e-09, 1, 8.38498e-11, 5.41031e-10, 6.99003e-11, 1, 0.035, 0.03, 4.957)
+mesh = SubResource("PlaneMesh_wxb1a")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 3.21692e-10, -2.32831e-10, -1.44136e-09, 1, 7.27596e-12, 5.4103e-10, 7.71762e-11, 1, 0.0334924, 0.0300838, 0.00678068)
+mesh = SubResource("CylinderMesh_bph8a")
+
+[node name="GridLine" type="Node3D" parent="Floor"]
+script = ExtResource("4_1wxn0")

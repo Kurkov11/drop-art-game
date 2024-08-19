@@ -1,0 +1,145 @@
+[gd_scene load_steps=3 format=3 uid="uid://6dgcfy7da8x3"]
+
+[ext_resource type="Script" path="res://scenes/enter_details_scene.gd" id="1_7ux3w"]
+[ext_resource type="Script" path="res://scenes/ViewButtons.gd" id="2_d1ntu"]
+
+[node name="EnterDetailsScene" type="Node2D"]
+script = ExtResource("1_7ux3w")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -605.0
+offset_right = 605.0
+offset_bottom = 153.0
+grow_horizontal = 2
+theme_override_constants/separation = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Spawn Position"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 100
+columns = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="Label2" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Y
+"
+
+[node name="PosXSpinBox" type="SpinBox" parent="CanvasLayer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+min_value = -100.0
+
+[node name="PosYSpinBox" type="SpinBox" parent="CanvasLayer/HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+min_value = -100.0
+
+[node name="ViewButtons" type="HBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+script = ExtResource("2_d1ntu")
+
+[node name="View1" type="Button" parent="CanvasLayer/HBoxContainer/ViewButtons"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "1"
+
+[node name="View2" type="Button" parent="CanvasLayer/HBoxContainer/ViewButtons"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "2"
+
+[node name="View3" type="Button" parent="CanvasLayer/HBoxContainer/ViewButtons"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "3"
+
+[node name="View4" type="Button" parent="CanvasLayer/HBoxContainer/ViewButtons"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "4"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Dimensions"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 100
+columns = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "Width"
+
+[node name="Label2" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "Height"
+
+[node name="Label3" type="Label" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "Depth"
+
+[node name="WidthSpinBox" type="SpinBox" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+min_value = -100.0
+max_value = 20.0
+
+[node name="HeightSpinBox" type="SpinBox" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+min_value = -100.0
+
+[node name="DepthSpinBox" type="SpinBox" parent="CanvasLayer/HBoxContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+min_value = -100.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1324.0
+offset_top = -1019.0
+offset_right = -724.0
+offset_bottom = -789.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="SubmitButton" type="Button" parent="CanvasLayer/MarginContainer"]
+custom_minimum_size = Vector2(500, 130)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Produce the Shape!"
+
+[connection signal="view_change" from="CanvasLayer/HBoxContainer/ViewButtons" to="." method="_on_view_buttons_view_change"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/SubmitButton" to="." method="_on_submit_button_pressed"]

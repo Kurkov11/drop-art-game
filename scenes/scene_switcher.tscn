@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://ely30soympxe"]
+
+[ext_resource type="Script" path="res://SceneSwitcher.gd" id="1_48tx4"]
+[ext_resource type="PackedScene" uid="uid://6dgcfy7da8x3" path="res://scenes/enter_details_scene.tscn" id="2_jjocc"]
+[ext_resource type="PackedScene" uid="uid://c6rcxn5v8p5nh" path="res://scenes/start_scene.tscn" id="2_qv8j1"]
+[ext_resource type="AudioStream" uid="uid://hdhtqd54ybtx" path="res://assets/music/music-loop-bundle-download_2024_q1/NostalgiaLoop.ogg" id="4_2qpgj"]
+[ext_resource type="PackedScene" uid="uid://64j8rmcsjuwu" path="res://scenes/drop_particles.tscn" id="5_aqhqn"]
+
+[node name="SceneSwitcher" type="Node3D"]
+script = ExtResource("1_48tx4")
+
+[node name="EnterDetailsScene" parent="." instance=ExtResource("2_jjocc")]
+
+[node name="SpawnScene" parent="." instance=ExtResource("2_qv8j1")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15366, 0)
+stream = ExtResource("4_2qpgj")
+volume_db = -10.0
+autoplay = true
+
+[node name="DropParticles" parent="." instance=ExtResource("5_aqhqn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00308, 0)
+
+[connection signal="spawn_shape" from="EnterDetailsScene" to="." method="_on_enter_details_scene_spawn_shape"]
+[connection signal="view_changed" from="EnterDetailsScene" to="." method="_on_enter_details_scene_view_changed"]
+[connection signal="cutscene_end" from="SpawnScene" to="." method="_on_spawn_scene_cutscene_end"]
